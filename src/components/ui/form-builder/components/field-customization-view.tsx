@@ -27,6 +27,7 @@ import useFormBuilderStore from "@/components/ui/form-builder/hooks/use-form-bui
 import { isStatic } from "@/components/ui/form-builder/libs/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import Image from "next/image";
 
 const inputTypes = [
   { value: "text", label: "Text" },
@@ -69,28 +70,26 @@ function FormElementOptions({
       // Get the current layout container
       const state = useFormBuilderStore.getState();
       const formElements = state.isMS
-        ? (state.formElements as any)[stepIndex as number].stepFields
-        : state.formElements;
-
+        ? (state.formElements[stepIndex as number] as FormElementOrList[])
+        : (state.formElements as FormElementOrList[]);
       const layoutContainer = formElements[fieldIndex];
 
       if (
         layoutContainer.fieldType === "LayoutContainer" &&
         "rows" in layoutContainer
       ) {
-        // Update the element in the cell
+        // Update the cell with the new element
         const rows = [...layoutContainer.rows];
         rows[cellPosition.rowIndex].cells[cellPosition.cellIndex].element =
           getValues();
-
-        // Update the layout container
         editElement({
-          fieldIndex,
-          stepIndex,
+          fieldIndex: fieldIndex,
           modifiedFormElement: {
             ...layoutContainer,
             rows,
           },
+          j,
+          stepIndex,
         });
       }
     } else {
@@ -118,7 +117,7 @@ function FormElementOptions({
                 name: "content",
                 label: `Customize ${formElement.fieldType}`,
                 fieldType: "Input",
-                defaultValue: (formElement as any).content,
+                defaultValue: (formElement as { content?: string }).content,
                 required: true,
               }}
               form={form}
@@ -293,10 +292,12 @@ function FormElementOptions({
                       <div className="flex flex-col items-center p-4 border-2 border-dashed rounded-md">
                         {form.watch("src") ? (
                           <div className="relative w-full max-w-xs">
-                            <img
-                              src={form.watch("src")}
+                            <Image
+                              src={form.watch("src") || ""}
                               alt="Preview"
                               className="w-full h-auto rounded-md"
+                              width={form.watch("width") || 400}
+                              height={form.watch("height") || 300}
                             />
                             <Button
                               type="button"
@@ -637,5 +638,4 @@ export function FieldCustomizationView({
   );
 }
 
-// Make sure to export the types
 export type { RenderFormElementProps };

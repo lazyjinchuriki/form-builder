@@ -1,12 +1,12 @@
-import { AlertCircle } from 'lucide-react';
-import { useFormState } from 'react-hook-form';
-import { UseFormReturn } from 'react-hook-form';
-import { useWatch } from 'react-hook-form';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { FormElement, FormStep } from '@/components/ui/form-builder/form-types';
-import useFormBuilderStore from '@/components/ui/form-builder/hooks/use-form-builder-store';
-import { flattenFormSteps } from '@/components/ui/form-builder/libs/form-elements-helpers';
-import { evaluateRules } from '@/components/ui/form-builder/libs/rule-evaluator';
+import { AlertCircle } from "lucide-react";
+import { useFormState } from "react-hook-form";
+import { UseFormReturn } from "react-hook-form";
+import { useWatch } from "react-hook-form";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { FormElement, FormStep } from "@/components/ui/form-builder/form-types";
+import useFormBuilderStore from "@/components/ui/form-builder/hooks/use-form-builder-store";
+import { flattenFormSteps } from "@/components/ui/form-builder/libs/form-elements-helpers";
+import { evaluateRules } from "@/components/ui/form-builder/libs/rule-evaluator";
 
 export function FormErrorSummary({
   form,
@@ -33,7 +33,7 @@ export function FormErrorSummary({
     // If element not found or has no rules, consider it visible
     if (
       !element ||
-      !('rules' in element) ||
+      !("rules" in element) ||
       !element.rules ||
       element.rules.length === 0
     ) {
@@ -53,11 +53,11 @@ export function FormErrorSummary({
   }
 
   return (
-    <Alert variant='destructive' className='mt-4'>
-      <AlertCircle className='h-4 w-4' />
+    <Alert variant="destructive" className="mt-4">
+      <AlertCircle className="h-4 w-4" />
       <AlertTitle>Validation Errors</AlertTitle>
       <AlertDescription>
-        <ul className='list-disc pl-5 mt-2'>
+        <ul className="list-disc pl-5 mt-2">
           {visibleErrors.map(([fieldName, error]) => (
             <li key={fieldName}>
               {error?.message ? (

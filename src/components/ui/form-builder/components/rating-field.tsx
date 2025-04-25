@@ -1,14 +1,14 @@
-import { Star, StarHalf } from 'lucide-react';
-import * as React from 'react';
-import { cn } from '@/lib/utils';
-import { FormDescription, FormLabel } from '@/components/ui/form';
+import { Star, StarHalf } from "lucide-react";
+import * as React from "react";
+import { cn } from "@/lib/utils";
+import { FormDescription, FormLabel } from "@/components/ui/form";
 
 interface RatingFieldProps {
   value?: number;
   onChange?: (value: number) => void;
   maxRating?: number;
-  precision?: 'half' | 'full';
-  size?: 'sm' | 'md' | 'lg';
+  precision?: "half" | "full";
+  size?: "sm" | "md" | "lg";
   color?: string;
   disabled?: boolean;
   label?: string;
@@ -19,28 +19,28 @@ export function RatingField({
   value = 0,
   onChange,
   maxRating = 5,
-  precision = 'full',
-  size = 'md',
-  color = 'gold',
+  precision = "full",
+  size = "md",
+  color = "gold",
   disabled = false,
   label,
   description,
 }: RatingFieldProps) {
   // Convert value to number if it's a string
   const numericValue =
-    typeof value === 'string' ? parseFloat(value) || 0 : value;
+    typeof value === "string" ? parseFloat(value) || 0 : value;
   const [hoverValue, setHoverValue] = React.useState<number | null>(null);
 
   // Determine star size based on the size prop
   const getStarSize = () => {
     switch (size) {
-      case 'sm':
-        return 'h-4 w-4';
-      case 'lg':
-        return 'h-8 w-8';
-      case 'md':
+      case "sm":
+        return "h-4 w-4";
+      case "lg":
+        return "h-8 w-8";
+      case "md":
       default:
-        return 'h-6 w-6';
+        return "h-6 w-6";
     }
   };
 
@@ -73,21 +73,21 @@ export function RatingField({
 
     for (let i = 1; i <= maxRating; i++) {
       // For full precision, we only need to check if the current index is less than or equal to the display value
-      if (precision === 'full') {
+      if (precision === "full") {
         const isFilled = i <= displayValue;
         stars.push(
           <Star
             key={i}
             className={cn(
               starSize,
-              'cursor-pointer transition-colors',
-              isFilled ? 'fill-current text-yellow-400' : 'text-gray-300',
-              disabled && 'cursor-not-allowed opacity-50',
+              "cursor-pointer transition-colors",
+              isFilled ? "fill-current text-yellow-400" : "text-gray-300",
+              disabled && "cursor-not-allowed opacity-50"
             )}
             style={{ color: isFilled ? color : undefined }}
             onMouseEnter={() => handleMouseEnter(i)}
             onClick={() => handleClick(i)}
-          />,
+          />
         );
       } else {
         // For half precision, we need to check if we should render a half star
@@ -101,8 +101,8 @@ export function RatingField({
               key={i}
               className={cn(
                 starSize,
-                'fill-current text-yellow-400 cursor-pointer transition-colors',
-                disabled && 'cursor-not-allowed opacity-50',
+                "fill-current text-yellow-400 cursor-pointer transition-colors",
+                disabled && "cursor-not-allowed opacity-50"
               )}
               style={{ color }}
               onMouseEnter={() => handleMouseEnter(i)}
@@ -114,23 +114,23 @@ export function RatingField({
           starComponent = (
             <div
               key={i}
-              className='relative'
+              className="relative"
               onMouseEnter={() => handleMouseEnter(i)}
               onClick={() => handleClick(i)}
             >
               <Star
                 className={cn(
                   starSize,
-                  'text-gray-300 absolute',
-                  disabled && 'cursor-not-allowed opacity-50',
+                  "text-gray-300 absolute",
+                  disabled && "cursor-not-allowed opacity-50"
                 )}
               />
-              <div className='overflow-hidden' style={{ width: '50%' }}>
+              <div className="overflow-hidden" style={{ width: "50%" }}>
                 <Star
                   className={cn(
                     starSize,
-                    'fill-current text-yellow-400',
-                    disabled && 'opacity-50',
+                    "fill-current text-yellow-400",
+                    disabled && "opacity-50"
                   )}
                   style={{ color }}
                 />
@@ -144,8 +144,8 @@ export function RatingField({
               key={i}
               className={cn(
                 starSize,
-                'text-gray-300 cursor-pointer transition-colors',
-                disabled && 'cursor-not-allowed opacity-50',
+                "text-gray-300 cursor-pointer transition-colors",
+                disabled && "cursor-not-allowed opacity-50"
               )}
               onMouseEnter={() => handleMouseEnter(i)}
               onClick={() => handleClick(i)}
@@ -161,15 +161,15 @@ export function RatingField({
   };
 
   return (
-    <div className='w-full'>
+    <div className="w-full">
       {label && <FormLabel>{label}</FormLabel>}
 
       <div
-        className='flex items-center gap-1 mt-1'
+        className="flex items-center gap-1 mt-1"
         onMouseLeave={handleMouseLeave}
       >
         {renderStars()}
-        <span className='ml-2 text-sm text-muted-foreground'>
+        <span className="ml-2 text-sm text-muted-foreground">
           {displayValue} of {maxRating}
         </span>
       </div>

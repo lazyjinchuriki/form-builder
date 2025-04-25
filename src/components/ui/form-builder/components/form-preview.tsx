@@ -52,7 +52,12 @@ export function FormPreview({ form }: FormPreviewProps) {
                 );
 
                 // If element not found or has no rules, consider it visible
-                if (!element || !element.rules || element.rules.length === 0) {
+                if (
+                  !element ||
+                  !("rules" in element) ||
+                  !element.rules ||
+                  element?.rules.length === 0
+                ) {
                   return true;
                 }
 

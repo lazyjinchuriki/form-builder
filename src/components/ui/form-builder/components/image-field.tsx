@@ -1,11 +1,11 @@
-import { Upload, X } from 'lucide-react';
-import Image from 'next/image';
-import { useState } from 'react';
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { FormDescription, FormLabel } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { Upload, X } from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { FormDescription, FormLabel } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 interface ImageFieldProps {
   src?: string;
@@ -21,10 +21,10 @@ interface ImageFieldProps {
 
 export function ImageField({
   src,
-  alt = 'Image',
+  alt = "Image",
   width = 400,
   height = 300,
-  className = '',
+  className = "",
   label,
   description,
   onChange,
@@ -53,7 +53,7 @@ export function ImageField({
       setIsUploading(false);
     };
     reader.onerror = (error) => {
-      console.error('Error converting image to base64:', error);
+      console.error("Error converting image to base64:", error);
       setIsUploading(false);
     };
   };
@@ -61,20 +61,20 @@ export function ImageField({
   const handleRemoveImage = () => {
     setImageSrc(undefined);
     if (onChange) {
-      onChange('');
+      onChange("");
     }
   };
 
   return (
-    <div className='w-full'>
+    <div className="w-full">
       {label && <FormLabel>{label}</FormLabel>}
 
-      <Card className='mt-2 overflow-hidden'>
-        <CardContent className='p-0'>
+      <Card className="mt-2 overflow-hidden">
+        <CardContent className="p-0">
           {imageSrc ? (
-            <div className='relative'>
+            <div className="relative">
               <div
-                className='relative w-full'
+                className="relative w-full"
                 style={{ height: `${height}px` }}
               >
                 {/* Use regular img tag instead of Next.js Image for better compatibility */}
@@ -82,41 +82,41 @@ export function ImageField({
                   src={imageSrc}
                   alt={alt}
                   className={`object-cover w-full h-full ${className}`}
-                  style={{ maxWidth: '100%' }}
+                  style={{ maxWidth: "100%" }}
                 />
               </div>
 
               {editable && (
                 <Button
-                  variant='destructive'
-                  size='icon'
-                  className='absolute top-2 right-2'
+                  variant="destructive"
+                  size="icon"
+                  className="absolute top-2 right-2"
                   onClick={handleRemoveImage}
                 >
-                  <X className='h-4 w-4' />
+                  <X className="h-4 w-4" />
                 </Button>
               )}
             </div>
           ) : (
             <div
-              className='flex flex-col items-center justify-center bg-muted p-6'
+              className="flex flex-col items-center justify-center bg-muted p-6"
               style={{ height: `${height}px` }}
             >
               {editable ? (
                 <>
-                  <Upload className='h-10 w-10 text-muted-foreground mb-2' />
-                  <p className='text-sm text-muted-foreground mb-4'>
+                  <Upload className="h-10 w-10 text-muted-foreground mb-2" />
+                  <p className="text-sm text-muted-foreground mb-4">
                     Upload an image
                   </p>
                   <Input
-                    type='file'
-                    accept='image/*'
+                    type="file"
+                    accept="image/*"
                     onChange={handleFileChange}
-                    className='max-w-xs'
+                    className="max-w-xs"
                   />
                 </>
               ) : (
-                <p className='text-sm text-muted-foreground'>
+                <p className="text-sm text-muted-foreground">
                   No image available
                 </p>
               )}
@@ -128,12 +128,12 @@ export function ImageField({
       {description && <FormDescription>{description}</FormDescription>}
 
       {editable && imageSrc && (
-        <div className='mt-2'>
+        <div className="mt-2">
           <Input
-            type='file'
-            accept='image/*'
+            type="file"
+            accept="image/*"
             onChange={handleFileChange}
-            className='max-w-xs'
+            className="max-w-xs"
           />
         </div>
       )}

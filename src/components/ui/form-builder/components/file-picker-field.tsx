@@ -1,12 +1,12 @@
-import { FileIcon, ImageIcon, Trash2, Upload, X } from 'lucide-react';
-import Image from 'next/image';
-import * as React from 'react';
-import { useCallback, useState } from 'react';
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { FormDescription, FormLabel } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { FileIcon, ImageIcon, Trash2, Upload, X } from "lucide-react";
+import Image from "next/image";
+import * as React from "react";
+import { useCallback, useState } from "react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { FormDescription, FormLabel } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 interface FileObject {
   name: string;
@@ -32,7 +32,7 @@ interface FilePickerFieldProps {
 export function FilePickerField({
   value,
   onChange,
-  accept = '*',
+  accept = "*",
   multiple = false,
   maxSize = 5 * 1024 * 1024, // 5MB default
   maxFiles = 5,
@@ -76,7 +76,9 @@ export function FilePickerField({
         // Check file size
         if (file.size > maxSize) {
           setError(
-            `File "${file.name}" exceeds the maximum size of ${Math.round(maxSize / 1024 / 1024)}MB`,
+            `File "${file.name}" exceeds the maximum size of ${Math.round(
+              maxSize / 1024 / 1024
+            )}MB`
           );
 
           return;
@@ -87,7 +89,7 @@ export function FilePickerField({
 
         // Create preview URL for images
         let preview = undefined;
-        if (file.type.startsWith('image/') && showPreview) {
+        if (file.type.startsWith("image/") && showPreview) {
           preview = URL.createObjectURL(file);
         }
 
@@ -108,12 +110,12 @@ export function FilePickerField({
         }
       }
     } catch (err) {
-      console.error('Error processing files:', err);
-      setError('Error processing files');
+      console.error("Error processing files:", err);
+      setError("Error processing files");
     }
 
     // Reset the input value to allow selecting the same file again
-    e.target.value = '';
+    e.target.value = "";
   };
 
   // Handle file removal
@@ -131,11 +133,11 @@ export function FilePickerField({
 
   // Handle opening a file in a new tab
   const handleOpenFile = (file: FileObject) => {
-    if (file.type.startsWith('image/') || file.type === 'application/pdf') {
-      window.open(file.data, '_blank');
+    if (file.type.startsWith("image/") || file.type === "application/pdf") {
+      window.open(file.data, "_blank");
     } else {
       // For other file types, create a download link
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = file.data;
       link.download = file.name;
       document.body.appendChild(link);
@@ -146,29 +148,29 @@ export function FilePickerField({
 
   // Render file preview
   const renderFilePreview = (file: FileObject, index: number) => {
-    if (file.type.startsWith('image/') && file.preview && showPreview) {
+    if (file.type.startsWith("image/") && file.preview && showPreview) {
       return (
-        <div className='relative group'>
-          <div className='relative w-full h-32 overflow-hidden rounded-md'>
+        <div className="relative group">
+          <div className="relative w-full h-32 overflow-hidden rounded-md">
             <img
               src={
                 file.data
               } /* Use data instead of preview for better compatibility */
               alt={file.name}
-              className='object-cover w-full h-full'
+              className="object-cover w-full h-full"
             />
           </div>
           {!disabled && (
             <Button
-              variant='destructive'
-              size='icon'
-              className='absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity'
+              variant="destructive"
+              size="icon"
+              className="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity"
               onClick={() => handleRemoveFile(index)}
             >
-              <X className='h-4 w-4' />
+              <X className="h-4 w-4" />
             </Button>
           )}
-          <div className='mt-1 text-xs text-center truncate w-full'>
+          <div className="mt-1 text-xs text-center truncate w-full">
             {file.name}
           </div>
         </div>
@@ -176,29 +178,29 @@ export function FilePickerField({
     } else {
       return (
         <div
-          className='flex items-center p-2 border rounded-md cursor-pointer hover:bg-muted/50 transition-colors'
+          className="flex items-center p-2 border rounded-md cursor-pointer hover:bg-muted/50 transition-colors"
           onClick={() => handleOpenFile(file)}
         >
-          <div className='mr-2 text-primary'>
-            <FileIcon className='h-8 w-8' />
+          <div className="mr-2 text-primary">
+            <FileIcon className="h-8 w-8" />
           </div>
-          <div className='flex-1 min-w-0'>
-            <div className='text-sm font-medium truncate'>{file.name}</div>
-            <div className='text-xs text-muted-foreground'>
+          <div className="flex-1 min-w-0">
+            <div className="text-sm font-medium truncate">{file.name}</div>
+            <div className="text-xs text-muted-foreground">
               {(file.size / 1024).toFixed(1)} KB
             </div>
           </div>
           {!disabled && (
             <Button
-              variant='ghost'
-              size='icon'
-              className='ml-2'
+              variant="ghost"
+              size="icon"
+              className="ml-2"
               onClick={(e) => {
                 e.stopPropagation();
                 handleRemoveFile(index);
               }}
             >
-              <Trash2 className='h-4 w-4' />
+              <Trash2 className="h-4 w-4" />
             </Button>
           )}
         </div>
@@ -216,10 +218,10 @@ export function FilePickerField({
       return (
         <div
           className={cn(
-            'mt-2 gap-2',
-            showPreview && value.some((f) => f.type.startsWith('image/'))
-              ? 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4'
-              : 'space-y-2',
+            "mt-2 gap-2",
+            showPreview && value.some((f) => f.type.startsWith("image/"))
+              ? "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4"
+              : "space-y-2"
           )}
         >
           {value.map((file, index) => (
@@ -228,55 +230,57 @@ export function FilePickerField({
         </div>
       );
     } else if (!Array.isArray(value)) {
-      return <div className='mt-2'>{renderFilePreview(value, 0)}</div>;
+      return <div className="mt-2">{renderFilePreview(value, 0)}</div>;
     }
 
     return null;
   };
 
   return (
-    <div className='w-full'>
+    <div className="w-full">
       {label && <FormLabel>{label}</FormLabel>}
 
-      <div className='mt-1'>
-        <div className='flex items-center justify-center w-full'>
+      <div className="mt-1">
+        <div className="flex items-center justify-center w-full">
           <label
             htmlFor={`file-upload-${label}`}
             className={cn(
-              'flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-muted/20 hover:bg-muted/30 transition-colors',
-              disabled && 'opacity-50 cursor-not-allowed',
+              "flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-muted/20 hover:bg-muted/30 transition-colors",
+              disabled && "opacity-50 cursor-not-allowed"
             )}
           >
-            <div className='flex flex-col items-center justify-center pt-5 pb-6'>
-              <Upload className='w-8 h-8 mb-2 text-muted-foreground' />
-              <p className='mb-2 text-sm text-muted-foreground'>
-                <span className='font-semibold'>Click to upload</span> or drag
+            <div className="flex flex-col items-center justify-center pt-5 pb-6">
+              <Upload className="w-8 h-8 mb-2 text-muted-foreground" />
+              <p className="mb-2 text-sm text-muted-foreground">
+                <span className="font-semibold">Click to upload</span> or drag
                 and drop
               </p>
-              <p className='text-xs text-muted-foreground'>
+              <p className="text-xs text-muted-foreground">
                 {multiple
-                  ? `Up to ${maxFiles} files (max ${Math.round(maxSize / 1024 / 1024)}MB each)`
+                  ? `Up to ${maxFiles} files (max ${Math.round(
+                      maxSize / 1024 / 1024
+                    )}MB each)`
                   : `Max file size: ${Math.round(maxSize / 1024 / 1024)}MB`}
               </p>
-              {accept !== '*' && (
-                <p className='text-xs text-muted-foreground mt-1'>
-                  Accepted formats: {accept.split(',').join(', ')}
+              {accept !== "*" && (
+                <p className="text-xs text-muted-foreground mt-1">
+                  Accepted formats: {accept.split(",").join(", ")}
                 </p>
               )}
             </div>
             <Input
               id={`file-upload-${label}`}
-              type='file'
+              type="file"
               accept={accept}
               multiple={multiple}
-              className='hidden'
+              className="hidden"
               onChange={handleFileChange}
               disabled={disabled}
             />
           </label>
         </div>
 
-        {error && <p className='mt-2 text-sm text-destructive'>{error}</p>}
+        {error && <p className="mt-2 text-sm text-destructive">{error}</p>}
 
         {renderFiles()}
       </div>

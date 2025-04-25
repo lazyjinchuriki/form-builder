@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react';
-import { useWatch } from 'react-hook-form';
-import { UseFormReturn } from 'react-hook-form';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useEffect, useState } from "react";
+import { useWatch } from "react-hook-form";
+import { UseFormReturn } from "react-hook-form";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   FormElement,
   FormElementOrList,
   FormStep,
-} from '@/components/ui/form-builder/form-types';
-import useFormBuilderStore from '@/components/ui/form-builder/hooks/use-form-builder-store';
-import { flattenFormSteps } from '@/components/ui/form-builder/libs/form-elements-helpers';
-import { calculateTotalWeight } from '@/components/ui/form-builder/libs/rule-evaluator';
-import { Progress } from '@/components/ui/progress';
+} from "@/components/ui/form-builder/form-types";
+import useFormBuilderStore from "@/components/ui/form-builder/hooks/use-form-builder-store";
+import { flattenFormSteps } from "@/components/ui/form-builder/libs/form-elements-helpers";
+import { calculateTotalWeight } from "@/components/ui/form-builder/libs/rule-evaluator";
+import { Progress } from "@/components/ui/progress";
 
 export function FormWeightDisplay({
   form,
@@ -39,7 +39,12 @@ export function FormWeightDisplay({
       let fieldsWithWeights = 0;
 
       flattenedElements.forEach((element) => {
-        if (element.weights && element.weights.length > 0 && !element.static) {
+        if (
+          "weights" in element &&
+          element.weights &&
+          element.weights.length > 0 &&
+          !element.static
+        ) {
           fieldsWithWeights++;
 
           // Sum up all weights for this field
@@ -70,9 +75,9 @@ export function FormWeightDisplay({
   const weightPercentage = Math.min((totalWeight / maxWeight) * 100, 100);
 
   return (
-    <Card className='mt-4'>
-      <CardHeader className='pb-2'>
-        <CardTitle className='text-base flex justify-between'>
+    <Card className="mt-4">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-base flex justify-between">
           <span>Total Score</span>
           <span>
             {totalWeight} / {maxWeight}
@@ -80,7 +85,7 @@ export function FormWeightDisplay({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <Progress value={weightPercentage} className='h-2' />
+        <Progress value={weightPercentage} className="h-2" />
       </CardContent>
     </Card>
   );

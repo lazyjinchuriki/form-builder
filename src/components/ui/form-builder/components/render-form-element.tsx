@@ -230,25 +230,6 @@ export function RenderFormElement({
     }
   }, [formValues, (formElement as any).rules]);
 
-  // Handle LayoutContainer type
-  if (
-    formElement.fieldType === "LayoutContainer" &&
-    "children" in formElement
-  ) {
-    return (
-      <div className={formElement.className || ""}>
-        {formElement.children.map((child, index) => (
-          <div
-            key={child.name || index}
-            className={(child as any).className || ""}
-          >
-            <RenderFormElement formElement={child} form={form} />
-          </div>
-        ))}
-      </div>
-    );
-  }
-
   // If field should be hidden, return null
   if (!fieldState.visible && !formElement.static) {
     return <></>;
