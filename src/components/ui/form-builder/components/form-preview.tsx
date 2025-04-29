@@ -56,7 +56,7 @@ export function FormPreview({ form }: FormPreviewProps) {
                   !element ||
                   !("rules" in element) ||
                   !element.rules ||
-                  element?.rules.length === 0
+                  element.rules.length === 0
                 ) {
                   return true;
                 }
@@ -92,10 +92,7 @@ export function FormPreview({ form }: FormPreviewProps) {
                       className="flex items-center justify-between flex-wrap sm:flex-nowrap w-full gap-2"
                     >
                       {element.map((el, ii) => (
-                        <div
-                          key={el.name || `element-${ii}`}
-                          className="w-full"
-                        >
+                        <div key={el.name + ii} className="w-full">
                           <RenderFormElement formElement={el} form={form} />
                         </div>
                       ))}
@@ -104,7 +101,7 @@ export function FormPreview({ form }: FormPreviewProps) {
                 }
 
                 return (
-                  <div key={element.name || `element-${i}`} className="w-full">
+                  <div key={element.name + i} className="w-full">
                     <RenderFormElement formElement={element} form={form} />
                   </div>
                 );

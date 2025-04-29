@@ -20,14 +20,6 @@ import {
   transformToStepFormList,
 } from "@/components/ui/form-builder/libs/form-elements-helpers";
 
-type LayoutType = "row" | "column";
-
-type CreateLayoutOptions = {
-  type: LayoutType;
-  fieldIndex: number;
-  stepIndex?: number;
-};
-
 type MSForm = {
   formElements: FormStep[];
   isMS: true;
@@ -44,9 +36,8 @@ type FormBuilderState = {
   reorder: ReorderElements;
   setTemplate: SetTemplate;
   resestFormElements: () => void;
-
   setIsMS: (isMS: boolean) => void;
-
+  setCustomTemplate: (templateKey: string) => void;
   addFormStep: (position?: number) => void;
   removeFormStep: (stepIndex: number) => void;
 } & (MSForm | SingleForm);
@@ -359,46 +350,6 @@ export const useFormBuilderStore = create<FormBuilderState>((set) => ({
       return {
         formElements: dropAtIndex(state.formElements as FormStep[], stepIndex),
       };
-    });
-  },
-
-  createLayout: (options: CreateLayoutOptions) => {
-    const { type, fieldIndex, stepIndex } = options;
-
-    set((state) => {
-      const { isMS } = state;
-
-      if (isMS) {
-        // Multi-step form
-        if (typeof stepIndex !== "undefined") {
-          const clonedFormElements = [...state.formElements] as FormStep[];
-          const stepFields = [...clonedFormElements[stepIndex].stepFields];
-          const currentElement = stepFields[fieldIndex];
-
-          // Create a new array with the current element
-          if (type === "row") {
-            stepFields[fieldIndex] = [currentElement];
-          }
-
-          clonedFormElements[stepIndex].stepFields = stepFields;
-          return { formElements: clonedFormElements };
-        }
-      } else {
-        // Single-step form
-        const clonedFormElements = [
-          ...state.formElements,
-        ] as FormElementOrList[];
-        const currentElement = clonedFormElements[fieldIndex];
-
-        // Create a new array with the current element
-        if (type === "row") {
-          clonedFormElements[fieldIndex] = [currentElement];
-        }
-
-        return { formElements: clonedFormElements };
-      }
-
-      return state;
     });
   },
 }));

@@ -1,6 +1,7 @@
 import { Edit } from "lucide-react";
 import * as React from "react";
 import { UseFormReturn, useForm } from "react-hook-form";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -27,7 +28,6 @@ import useFormBuilderStore from "@/components/ui/form-builder/hooks/use-form-bui
 import { isStatic } from "@/components/ui/form-builder/libs/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import Image from "next/image";
 
 const inputTypes = [
   { value: "text", label: "Text" },
@@ -49,13 +49,11 @@ function FormElementOptions({
   close,
   j,
   stepIndex,
-  cellPosition,
   ...formElement
 }: FormElement & {
   fieldIndex: number;
   stepIndex?: number;
   j?: number;
-  cellPosition?: { rowIndex: number; cellIndex: number };
   close: () => void;
 }) {
   const form = useForm<FormElement>({
@@ -66,41 +64,12 @@ function FormElementOptions({
   const { handleSubmit, getValues } = form;
 
   const onSubmit = () => {
-    if (cellPosition) {
-      // Get the current layout container
-      const state = useFormBuilderStore.getState();
-      const formElements = state.isMS
-        ? (state.formElements[stepIndex as number] as FormElementOrList[])
-        : (state.formElements as FormElementOrList[]);
-      const layoutContainer = formElements[fieldIndex];
-
-      if (
-        layoutContainer.fieldType === "LayoutContainer" &&
-        "rows" in layoutContainer
-      ) {
-        // Update the cell with the new element
-        const rows = [...layoutContainer.rows];
-        rows[cellPosition.rowIndex].cells[cellPosition.cellIndex].element =
-          getValues();
-        editElement({
-          fieldIndex: fieldIndex,
-          modifiedFormElement: {
-            ...layoutContainer,
-            rows,
-          },
-          j,
-          stepIndex,
-        });
-      }
-    } else {
-      // Regular edit
-      editElement({
-        fieldIndex: fieldIndex,
-        modifiedFormElement: getValues(),
-        j,
-        stepIndex,
-      });
-    }
+    editElement({
+      fieldIndex: fieldIndex,
+      modifiedFormElement: getValues(),
+      j,
+      stepIndex,
+    });
     close();
   };
 
@@ -117,7 +86,7 @@ function FormElementOptions({
                 name: "content",
                 label: `Customize ${formElement.fieldType}`,
                 fieldType: "Input",
-                defaultValue: (formElement as { content?: string }).content,
+                defaultValue: (formElement as any).content,
                 required: true,
               }}
               form={form}
@@ -292,12 +261,10 @@ function FormElementOptions({
                       <div className="flex flex-col items-center p-4 border-2 border-dashed rounded-md">
                         {form.watch("src") ? (
                           <div className="relative w-full max-w-xs">
-                            <Image
-                              src={form.watch("src") || ""}
+                            <img
+                              src={form.watch("src")}
                               alt="Preview"
                               className="w-full h-auto rounded-md"
-                              width={form.watch("width") || 400}
-                              height={form.watch("height") || 300}
                             />
                             <Button
                               type="button"
@@ -569,13 +536,11 @@ export function FieldCustomizationView({
   formElement,
   j,
   stepIndex,
-  cellPosition,
 }: {
   fieldIndex: number;
   j?: number;
   formElement: FormElement;
   stepIndex?: number;
-  cellPosition?: { rowIndex: number; cellIndex: number };
 }) {
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -587,7 +552,6 @@ export function FieldCustomizationView({
       fieldIndex={fieldIndex}
       stepIndex={stepIndex}
       j={j}
-      cellPosition={cellPosition}
       {...formElement}
       close={close}
     />
@@ -638,4 +602,5 @@ export function FieldCustomizationView({
   );
 }
 
+// Make sure to export the types
 export type { RenderFormElementProps };

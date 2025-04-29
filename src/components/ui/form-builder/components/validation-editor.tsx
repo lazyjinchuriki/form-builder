@@ -1,17 +1,17 @@
-import { Plus, Trash2 } from "lucide-react";
-import * as React from "react";
-import { UseFormReturn } from "react-hook-form";
-import { Button } from "@/components/ui/button";
-import { ValidationRule } from "@/components/ui/form-builder/form-types";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Plus, Trash2 } from 'lucide-react';
+import * as React from 'react';
+import { UseFormReturn } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
+import { ValidationRule } from '@/components/ui/form-builder/form-types';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 
 interface ValidationEditorProps {
   validations: ValidationRule[];
@@ -26,50 +26,50 @@ export function ValidationEditor({
 }: ValidationEditorProps) {
   // Get validation types based on field type
   const getValidationTypes = () => {
-    const commonValidations = [{ value: "required", label: "Required" }];
+    const commonValidations = [{ value: 'required', label: 'Required' }];
 
     const textValidations = [
-      { value: "minLength", label: "Minimum Length" },
-      { value: "maxLength", label: "Maximum Length" },
-      { value: "pattern", label: "Pattern (Regex)" },
+      { value: 'minLength', label: 'Minimum Length' },
+      { value: 'maxLength', label: 'Maximum Length' },
+      { value: 'pattern', label: 'Pattern (Regex)' },
     ];
 
     const numberValidations = [
-      { value: "min", label: "Minimum Value" },
-      { value: "max", label: "Maximum Value" },
+      { value: 'min', label: 'Minimum Value' },
+      { value: 'max', label: 'Maximum Value' },
     ];
 
-    const emailValidations = [{ value: "email", label: "Email Format" }];
+    const emailValidations = [{ value: 'email', label: 'Email Format' }];
 
-    const urlValidations = [{ value: "url", label: "URL Format" }];
+    const urlValidations = [{ value: 'url', label: 'URL Format' }];
 
     const dateValidations = [
-      { value: "minDate", label: "Minimum Date" },
-      { value: "maxDate", label: "Maximum Date" },
-      { value: "afterToday", label: "After Today" },
-      { value: "beforeToday", label: "Before Today" },
+      { value: 'minDate', label: 'Minimum Date' },
+      { value: 'maxDate', label: 'Maximum Date' },
+      { value: 'afterToday', label: 'After Today' },
+      { value: 'beforeToday', label: 'Before Today' },
     ];
 
-    const fileValidations = [{ value: "maxSize", label: "Maximum File Size" }];
+    const fileValidations = [{ value: 'maxSize', label: 'Maximum File Size' }];
 
     switch (fieldType) {
-      case "Input":
+      case 'Input':
         return [
           ...commonValidations,
           ...textValidations,
           ...emailValidations,
           ...urlValidations,
         ];
-      case "Textarea":
+      case 'Textarea':
         return [...commonValidations, ...textValidations];
-      case "PasswordInput":
+      case 'PasswordInput':
         return [...commonValidations, ...textValidations];
-      case "Slider":
-      case "Rating":
+      case 'Slider':
+      case 'Rating':
         return [...commonValidations, ...numberValidations];
-      case "DatePicker":
+      case 'DatePicker':
         return [...commonValidations, ...dateValidations];
-      case "FilePicker":
+      case 'FilePicker':
         return [...commonValidations, ...fileValidations];
       default:
         return commonValidations;
@@ -80,8 +80,8 @@ export function ValidationEditor({
 
   const handleAddValidation = () => {
     const newValidation: ValidationRule = {
-      type: "required",
-      message: "This field is required",
+      type: 'required',
+      message: 'This field is required',
     };
     onChange([...validations, newValidation]);
   };
@@ -95,61 +95,61 @@ export function ValidationEditor({
   const handleValidationChange = (
     index: number,
     field: keyof ValidationRule,
-    value: any
+    value: any,
   ) => {
     const newValidations = [...validations];
     newValidations[index] = { ...newValidations[index], [field]: value };
 
     // Set default message based on validation type
-    if (field === "type") {
+    if (field === 'type') {
       switch (value) {
-        case "required":
-          newValidations[index].message = "This field is required";
+        case 'required':
+          newValidations[index].message = 'This field is required';
           break;
-        case "minLength":
+        case 'minLength':
           newValidations[index].message =
-            "Must be at least ${value} characters";
+            'Must be at least ${value} characters';
           newValidations[index].value = 3;
           break;
-        case "maxLength":
-          newValidations[index].message = "Must be at most ${value} characters";
+        case 'maxLength':
+          newValidations[index].message = 'Must be at most ${value} characters';
           newValidations[index].value = 100;
           break;
-        case "min":
-          newValidations[index].message = "Must be at least ${value}";
+        case 'min':
+          newValidations[index].message = 'Must be at least ${value}';
           newValidations[index].value = 0;
           break;
-        case "max":
-          newValidations[index].message = "Must be at most ${value}";
+        case 'max':
+          newValidations[index].message = 'Must be at most ${value}';
           newValidations[index].value = 100;
           break;
-        case "pattern":
-          newValidations[index].message = "Invalid format";
-          newValidations[index].value = "";
+        case 'pattern':
+          newValidations[index].message = 'Invalid format';
+          newValidations[index].value = '';
           break;
-        case "email":
-          newValidations[index].message = "Must be a valid email address";
+        case 'email':
+          newValidations[index].message = 'Must be a valid email address';
           break;
-        case "url":
-          newValidations[index].message = "Must be a valid URL";
+        case 'url':
+          newValidations[index].message = 'Must be a valid URL';
           break;
-        case "minDate":
-          newValidations[index].message = "Date must be after ${value}";
-          newValidations[index].value = new Date().toISOString().split("T")[0];
+        case 'minDate':
+          newValidations[index].message = 'Date must be after ${value}';
+          newValidations[index].value = new Date().toISOString().split('T')[0];
           break;
-        case "maxDate":
-          newValidations[index].message = "Date must be before ${value}";
-          newValidations[index].value = new Date().toISOString().split("T")[0];
+        case 'maxDate':
+          newValidations[index].message = 'Date must be before ${value}';
+          newValidations[index].value = new Date().toISOString().split('T')[0];
           break;
-        case "afterToday":
-          newValidations[index].message = "Date must be after today";
+        case 'afterToday':
+          newValidations[index].message = 'Date must be after today';
           break;
-        case "beforeToday":
-          newValidations[index].message = "Date must be before today";
+        case 'beforeToday':
+          newValidations[index].message = 'Date must be before today';
           break;
-        case "maxSize":
+        case 'maxSize':
           newValidations[index].message =
-            "File must be smaller than ${value}MB";
+            'File must be smaller than ${value}MB';
           newValidations[index].value = 5;
           break;
       }
@@ -162,53 +162,53 @@ export function ValidationEditor({
   const renderValueInput = (validation: ValidationRule, index: number) => {
     if (
       !validation.type ||
-      validation.type === "required" ||
-      validation.type === "email" ||
-      validation.type === "url" ||
-      validation.type === "afterToday" ||
-      validation.type === "beforeToday"
+      validation.type === 'required' ||
+      validation.type === 'email' ||
+      validation.type === 'url' ||
+      validation.type === 'afterToday' ||
+      validation.type === 'beforeToday'
     ) {
       return null;
     }
 
     switch (validation.type) {
-      case "minLength":
-      case "maxLength":
-      case "min":
-      case "max":
+      case 'minLength':
+      case 'maxLength':
+      case 'min':
+      case 'max':
         return (
           <Input
-            type="number"
-            value={validation.value || ""}
+            type='number'
+            value={validation.value || ''}
             onChange={(e) =>
-              handleValidationChange(index, "value", parseFloat(e.target.value))
+              handleValidationChange(index, 'value', parseFloat(e.target.value))
             }
-            placeholder="Value"
-            className="w-full"
+            placeholder='Value'
+            className='w-full'
           />
         );
-      case "pattern":
+      case 'pattern':
         return (
           <Input
-            type="text"
-            value={validation.value || ""}
+            type='text'
+            value={validation.value || ''}
             onChange={(e) =>
-              handleValidationChange(index, "value", e.target.value)
+              handleValidationChange(index, 'value', e.target.value)
             }
-            placeholder="Regular expression"
-            className="w-full"
+            placeholder='Regular expression'
+            className='w-full'
           />
         );
-      case "minDate":
-      case "maxDate":
+      case 'minDate':
+      case 'maxDate':
         return (
           <Input
-            type="date"
-            value={validation.value || ""}
+            type='date'
+            value={validation.value || ''}
             onChange={(e) =>
-              handleValidationChange(index, "value", e.target.value)
+              handleValidationChange(index, 'value', e.target.value)
             }
-            className="w-full"
+            className='w-full'
           />
         );
       default:
@@ -217,52 +217,52 @@ export function ValidationEditor({
   };
 
   return (
-    <div className="space-y-3">
-      <div className="flex justify-between items-center">
+    <div className='space-y-3'>
+      <div className='flex justify-between items-center'>
         <Label>Validations</Label>
         <Button
-          type="button"
-          size="sm"
-          variant="outline"
+          type='button'
+          size='sm'
+          variant='outline'
           onClick={handleAddValidation}
         >
-          <Plus className="h-4 w-4 mr-1" /> Add Validation
+          <Plus className='h-4 w-4 mr-1' /> Add Validation
         </Button>
       </div>
 
       {validations.length === 0 ? (
-        <div className="text-center py-4 border rounded-md bg-muted/20">
-          <p className="text-sm text-muted-foreground">
+        <div className='text-center py-4 border rounded-md bg-muted/20'>
+          <p className='text-sm text-muted-foreground'>
             No validations added yet
           </p>
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className='space-y-3'>
           {validations.map((validation, index) => (
-            <div key={index} className="p-3 border rounded-md">
-              <div className="flex justify-between items-center mb-2">
-                <h4 className="text-sm font-medium">Validation {index + 1}</h4>
+            <div key={index} className='p-3 border rounded-md'>
+              <div className='flex justify-between items-center mb-2'>
+                <h4 className='text-sm font-medium'>Validation {index + 1}</h4>
                 <Button
-                  type="button"
-                  size="icon"
-                  variant="ghost"
+                  type='button'
+                  size='icon'
+                  variant='ghost'
                   onClick={() => handleRemoveValidation(index)}
                 >
-                  <Trash2 className="h-4 w-4" />
+                  <Trash2 className='h-4 w-4' />
                 </Button>
               </div>
 
-              <div className="grid grid-cols-1 gap-3">
+              <div className='grid grid-cols-1 gap-3'>
                 <div>
-                  <Label className="mb-1 block">Type</Label>
+                  <Label className='mb-1 block'>Type</Label>
                   <Select
                     value={validation.type}
                     onValueChange={(value) =>
-                      handleValidationChange(index, "type", value)
+                      handleValidationChange(index, 'type', value)
                     }
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Select validation type" />
+                      <SelectValue placeholder='Select validation type' />
                     </SelectTrigger>
                     <SelectContent>
                       {validationTypes.map((type) => (
@@ -277,14 +277,14 @@ export function ValidationEditor({
                 {renderValueInput(validation, index)}
 
                 <div>
-                  <Label className="mb-1 block">Error Message</Label>
+                  <Label className='mb-1 block'>Error Message</Label>
                   <Input
-                    value={validation.message || ""}
+                    value={validation.message || ''}
                     onChange={(e) =>
-                      handleValidationChange(index, "message", e.target.value)
+                      handleValidationChange(index, 'message', e.target.value)
                     }
-                    placeholder="Error message"
-                    className="w-full"
+                    placeholder='Error message'
+                    className='w-full'
                   />
                 </div>
               </div>

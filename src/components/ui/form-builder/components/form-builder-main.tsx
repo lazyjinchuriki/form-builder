@@ -20,9 +20,9 @@ const tabsList = [
   {
     name: "Edit",
   },
-  {
-    name: "Code",
-  },
+  // {
+  //   name: 'Code',
+  // },
   {
     name: "JSON",
   },
@@ -77,13 +77,13 @@ export function FormBuilderMain() {
               </div>
               <FormEdit />
             </TabsContent>
-            <TabsContent value={tabsList[1].name} tabIndex={-1}>
+            {/* <TabsContent value={tabsList[1].name} tabIndex={-1}>
               <GeneratedFormCodeViewer />
-            </TabsContent>
-            <TabsContent value={tabsList[2].name} tabIndex={-1}>
+            </TabsContent> */}
+            <TabsContent value={tabsList[1].name} tabIndex={-1}>
               <JsonViewer json={formElements} isMS={isMS} />
             </TabsContent>
-            <TabsContent value={tabsList[3].name} tabIndex={-1}>
+            <TabsContent value={tabsList[2].name} tabIndex={-1}>
               <JsonViewer json={submittedData} isMS={isMS} />
             </TabsContent>
           </Tabs>

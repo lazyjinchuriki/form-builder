@@ -249,7 +249,6 @@ type Separator = {
  * FormFieldType is a union type that represents all the possible form fields
  * that can be rendered in a form
  */
-
 type FormFieldElement =
   | Textarea
   | Input

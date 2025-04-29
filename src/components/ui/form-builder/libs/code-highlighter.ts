@@ -1,9 +1,9 @@
-'use server';
+"use server";
 
-import { toJsxRuntime } from 'hast-util-to-jsx-runtime';
-import { Fragment } from 'react';
-import { jsx, jsxs } from 'react/jsx-runtime';
-import { codeToHast } from 'shiki';
+import { toJsxRuntime } from "hast-util-to-jsx-runtime";
+import { Fragment } from "react";
+import { jsx, jsxs } from "react/jsx-runtime";
+import { codeToHast } from "shiki";
 
 export async function codeHighlighter({
   code,
@@ -13,13 +13,13 @@ export async function codeHighlighter({
   lang?: string;
 }) {
   const out = await codeToHast(code, {
-    lang: lang ?? 'tsx',
-    theme: 'everforest-dark',
+    lang: lang ?? "tsx",
+    theme: "everforest-dark",
   });
 
-  return toJsxRuntime(out, {
+  return toJsxRuntime(out as any, {
     Fragment,
-    jsx,
-    jsxs,
+    jsx: jsx as any,
+    jsxs: jsxs as any,
   });
 }

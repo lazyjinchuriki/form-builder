@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { RenderFormElement } from "@/components/ui/form-builder/components/render-form-element";
 import {
   FieldRule,
   FormElement,
@@ -26,6 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 
 const ruleOperators: { value: RuleOperator; label: string }[] = [
   { value: "equals", label: "Equals" },
@@ -52,6 +54,7 @@ const logicOperators = [
 // Helper function to get field type-specific value input
 const FieldValueInput = ({
   sourceField,
+  operator,
   value,
   onChange,
   availableFields,

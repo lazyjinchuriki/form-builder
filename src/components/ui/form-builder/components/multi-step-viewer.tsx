@@ -12,8 +12,8 @@ import type {
 } from "@/components/ui/form-builder/form-types";
 import { useMultiStepForm } from "@/components/ui/form-builder/hooks/use-multi-step-form";
 import { Progress } from "@/components/ui/progress";
-import { flattenFormSteps } from "../libs/form-elements-helpers";
 import { evaluateRules } from "../libs/rule-evaluator";
+import { flattenFormSteps } from "../libs/form-elements-helpers";
 
 /**
  * Used to render a multi-step form in preview mode
@@ -144,7 +144,7 @@ export function MultiStepViewer({
             {isSubmitting
               ? "Submitting..."
               : isSubmitted
-              ? "Submitted ✅"
+              ? "Submitted"
               : "Submit"}
           </Button>
         ) : (

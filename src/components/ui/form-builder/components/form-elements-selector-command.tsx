@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { Badge } from "@/components/ui/badge";
+import * as React from 'react';
+import { Badge } from '@/components/ui/badge';
 import {
   CommandDialog,
   CommandEmpty,
@@ -9,11 +9,11 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
-import { formElementsList } from "@/components/ui/form-builder/constant/form-elements-list";
-import { FormElement } from "@/components/ui/form-builder/form-types";
-import { useCommand } from "@/components/ui/form-builder/hooks/use-command-ctx";
-import useFormBuilderStore from "../hooks/use-form-builder-store";
+} from '@/components/ui/command';
+import { formElementsList } from '@/components/ui/form-builder/constant/form-elements-list';
+import { FormElement } from '@/components/ui/form-builder/form-types';
+import { useCommand } from '@/components/ui/form-builder/hooks/use-command-ctx';
+import useFormBuilderStore from '../hooks/use-form-builder-store';
 
 export function FormElementsSelectorCommand() {
   const appendElement = useFormBuilderStore((s) => s.appendElement);
@@ -23,35 +23,35 @@ export function FormElementsSelectorCommand() {
 
   return (
     <div>
-      <p className="text-sm text-muted-foreground mb-2 text-center">
-        Press{" "}
-        <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+      <p className='text-sm text-muted-foreground mb-2 text-center'>
+        Press{' '}
+        <kbd className='pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100'>
           {/* <span className="text-xs">⌘</span> */}f
         </kbd>
       </p>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput
-          placeholder="Type form field name..."
-          className="max-w-sm"
+          placeholder='Type form field name...'
+          className='max-w-sm'
         />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Fields">
+          <CommandGroup heading='Fields'>
             {formElementsList.map((o) => (
               <CommandItem
                 key={o.name}
                 onSelect={() => {
                   appendElement({
-                    fieldType: o.fieldType as FormElement["fieldType"],
+                    fieldType: o.fieldType as FormElement['fieldType'],
                     stepIndex: isMS ? formElements.length - 1 : undefined,
                   });
                 }}
-                className="gap-3"
+                className='gap-3'
               >
                 {o.name}
-                {/* {o.isNew && (
+                {o.isNew && (
                   <Badge className='text-sm py-0 rounded-[2px]'>New</Badge>
-                )} */}
+                )}
               </CommandItem>
             ))}
           </CommandGroup>
