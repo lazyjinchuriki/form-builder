@@ -99,25 +99,6 @@ export function TemplatesSelect() {
               </DropdownMenuItem>
             ))}
 
-            <DropdownMenuSeparator />
-            <DropdownMenuLabel>Medical Templates</DropdownMenuLabel>
-            {medicalTemplatesList.map(({ label, value, description }) => (
-              <DropdownMenuItem
-                key={`medical-${value}`}
-                onSelect={() => setTemplate(value)}
-                className="px-3.5 py-2.5"
-              >
-                <div className="flex flex-col">
-                  <span>{label}</span>
-                  {description && (
-                    <span className="text-xs text-muted-foreground">
-                      {description}
-                    </span>
-                  )}
-                </div>
-              </DropdownMenuItem>
-            ))}
-
             {customTemplates.length > 0 && (
               <>
                 <DropdownMenuSeparator />
