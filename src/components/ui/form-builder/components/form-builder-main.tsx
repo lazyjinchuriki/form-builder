@@ -38,6 +38,7 @@ export function FormBuilderMain() {
   const isMS = useFormBuilderStore((s) => s.isMS);
   const setIsMS = useFormBuilderStore((s) => s.setIsMS);
 
+  console.log(formElements, "formElements");
   return (
     <>
       <div className="w-full grid md:grid-cols-12 gap-3 lg:gap-5 p-2">

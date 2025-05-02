@@ -69,7 +69,6 @@ const createValidationRules = (validations: any[] | undefined) => {
     switch (validation.type) {
       case "required":
         rules.required = validation.message || "This field is required";
-        break;
       case "minLength":
         rules.minLength = {
           value: validation.value,
@@ -77,7 +76,6 @@ const createValidationRules = (validations: any[] | undefined) => {
             validation.message ||
             `Must be at least ${validation.value} characters`,
         };
-        break;
       case "maxLength":
         rules.maxLength = {
           value: validation.value,
@@ -85,37 +83,31 @@ const createValidationRules = (validations: any[] | undefined) => {
             validation.message ||
             `Must be at most ${validation.value} characters`,
         };
-        break;
       case "min":
         rules.min = {
           value: validation.value,
           message: validation.message || `Must be at least ${validation.value}`,
         };
-        break;
       case "max":
         rules.max = {
           value: validation.value,
           message: validation.message || `Must be at most ${validation.value}`,
         };
-        break;
       case "pattern":
         rules.pattern = {
           value: new RegExp(validation.value),
           message: validation.message || "Invalid format",
         };
-        break;
       case "email":
         rules.pattern = {
           value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
           message: validation.message || "Invalid email address",
         };
-        break;
       case "url":
         rules.pattern = {
           value: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
           message: validation.message || "Invalid URL",
         };
-        break;
       case "minDate":
         rules.validate = {
           ...rules.validate,
@@ -131,7 +123,6 @@ const createValidationRules = (validations: any[] | undefined) => {
             );
           },
         };
-        break;
       case "maxDate":
         rules.validate = {
           ...rules.validate,
@@ -147,7 +138,6 @@ const createValidationRules = (validations: any[] | undefined) => {
             );
           },
         };
-        break;
       case "afterToday":
         rules.validate = {
           ...rules.validate,
@@ -162,7 +152,6 @@ const createValidationRules = (validations: any[] | undefined) => {
             );
           },
         };
-        break;
       case "beforeToday":
         rules.validate = {
           ...rules.validate,
@@ -177,7 +166,6 @@ const createValidationRules = (validations: any[] | undefined) => {
             );
           },
         };
-        break;
       case "maxSize":
         rules.validate = {
           ...rules.validate,
@@ -198,7 +186,6 @@ const createValidationRules = (validations: any[] | undefined) => {
             );
           },
         };
-        break;
     }
   });
 
